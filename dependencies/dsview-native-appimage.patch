@@ -1,0 +1,49 @@
+diff --git a/cross-compile/appimage/sigrok-native-appimage b/cross-compile/appimage/sigrok-native-appimage
+index 01cf847..3a5dead 100755
+--- a/cross-compile/appimage/sigrok-native-appimage
++++ b/cross-compile/appimage/sigrok-native-appimage
+@@ -8,7 +8,7 @@
+ # Bundle PulseView/sigrok-cli (and deps) as an AppImage for x86_64/i386 Linux.
+ # Note: This assumes the full sigrok stack has been installed into $PREFIX.
+ 
+-PREFIX=$HOME/sr
++PREFIX=$HOME/ds
+ 
+ APPIMAGEKIT_OUTDIR=$HOME/AppImageKit/build/out
+ 
+@@ -24,7 +24,7 @@ PYVER=3.5
+ if [ "x$1" = "xsigrok-cli" ]; then
+ 	APP=sigrok-cli
+ else
+-	APP=PulseView
++	APP=DSView
+ fi
+ LOWERAPP=${APP,,} 
+ 
+@@ -46,13 +46,14 @@ cd ./$APP
+ 
+ cd $APP.AppDir/
+ 
+-cp $PREFIX/bin/$LOWERAPP usr/bin/
++cp $PREFIX/bin/$APP usr/bin/
+ chmod a+x usr/bin/*
+ cp $PREFIX/lib/lib*.so* usr/lib/
+-cp -r $PREFIX/share/libsigrokdecode usr/share/
++cp -r $PREFIX/share/DSView usr/share/
++cp -r $PREFIX/share/libsigrokdecode4DSL usr/share/
+ cp -r $PREFIX/share/sigrok-firmware usr/share/
+ mkdir -p usr/share/applications
+-cp $PREFIX/share/applications/org.sigrok.$APP.desktop usr/share/applications
++cp $PREFIX/share/applications/$APP.desktop usr/share/applications/com.dreamsourcelab.$APP.desktop
+ cp -r $PREFIX/share/icons usr/share/
+ cp -r $PREFIX/share/metainfo usr/share/
+ cp -r $PREFIX/share/mime usr/share/
+@@ -82,7 +83,7 @@ cp $APPIMAGEKIT_OUTDIR/AppRun .
+ # Copy desktop and icon file to AppDir for AppRun to pick them up
+ ########################################################################
+ 
+-cp $PREFIX/share/applications/org.sigrok.$APP.desktop .
++cp $PREFIX/share/applications/com.dreamsourcelab.$APP.desktop .
+ cp $PREFIX/share/icons/hicolor/scalable/apps/$LOWERAPP.svg .
+ 
+ ########################################################################
